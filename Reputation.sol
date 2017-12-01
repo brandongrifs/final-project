@@ -38,8 +38,12 @@ contract Reputation {
         //agent rep ++
     }
 
-    function rateContractor() {
-        // do stuff
+    function rateContractor(Contractor con) OwnerOnly() {
+        if(msg.value > 0) {
+            con._repTokens = 1;
+        } else {
+            con._repTokens = 0;
+        }
     }
 
     function Reputation(address agent){
