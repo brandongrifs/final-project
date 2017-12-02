@@ -18,6 +18,12 @@ contract Reputation {
         string _address;
     }
 
+    struct Job {
+        uint256 _bonusTime;
+        Contractor _workOrder;
+        uint256 _value;
+    }
+
     modifier OwnerOnly() {
         require(msg.sender == _owner);
         _;
@@ -61,4 +67,39 @@ contract Reputation {
             con._repTokens -= 1;
         }
     }
+
+    function rateContractor(Contractor con, uint256 rating) {
+        if(rating > 0) {
+            con._repTokens += 1;
+        } else if (con._repTokens > 0){
+            con._repTokens -= 1;
+        }
+    }
+
+
+    //starts a job with the given contractor, if finished before bonusTime,
+    //contractor receives extra reputation tokens
+    function startJob(Contractor con, uint256 bonusTime) payable AgentOnly(){
+        require(bonusTime > now);
+        require(AngelList[contractor] != null]);
+        Job thisJob = Job(con, bonusTime, msg.value);
+        JobStarted(thisJob, now);
+    }
+
+    //ends job, pays the worker the amount of tokens sent when the job started,
+    //includes goodBad (0 for bad rating, positive for good rating)
+    function endJob(Job job, uint256 rating) AgentOnly() {
+        if(job._bonusTime > now) {
+            job._workOrder._repTokens += 1;
+        }
+        _repToken.mint(job._value);
+        job._workOrder.transfer(job._value);
+        job._value = 0;
+        rateContractor(job._workOrder, rating);
+        JobEnded(job, rating);
+
+    }
+
+    event JobStarted(Job job, uint256 timeStarted);
+    event JobEnded(Job job, uint256 rating);
 }
