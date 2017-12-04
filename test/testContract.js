@@ -1,8 +1,7 @@
 'use strict';
 
 /* Add the dependencies you're testing */
-const Queue = artifacts.require("./Queue.sol");
-const Token = artifacts.require("./Token.sol");
+const Token = artifacts.require("/.././Token.sol");
 //
 contract('testToken', function(accounts) {
 	/* Define your constant variables and instantiate constantly changing
