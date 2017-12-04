@@ -10,12 +10,15 @@ contract Reputation {
     string ownerAddress;
     //contract owner is property owner
     address _owner;
+    bool ownerHasRatedContractor = false;
+    bool agentHasRatedContractor = false;
 
     Token public _repToken;
 
     struct Contractor {
-        uint256 _reputation;
+        uint256 _repTokens;
         string _address;
+        bool _initialized;
     }
 
     struct Job {
@@ -32,6 +35,16 @@ contract Reputation {
     modifier AgentOnly() {
         require(msg.sender == _agent);
             _;
+    }
+
+    modifier OwnerHasNotVoted() {
+        require(ownerHasRatedContractor == false);
+        _;
+    }
+
+    modifier AgentHasNotVoted() {
+        require(agentHasRatedContractor == false);
+        _;
     }
 
     mapping(address => Contractor) AngelList;
@@ -60,15 +73,7 @@ contract Reputation {
         //agent rep ++
     }
 
-    function rateContractor(Contractor con) OwnerOnly() {
-        if(msg.value > 0) {
-            con._repTokens += 1;
-        } else if (con._repTokens > 0) {
-            con._repTokens -= 1;
-        }
-    }
-
-    function rateContractor(Contractor con, uint256 rating) {
+    function rateContractorOwner(Contractor con, uint256 rating) OwnerOnly() OwnerHasNotVoted() {
         if(rating > 0) {
             con._repTokens += 1;
         } else if (con._repTokens > 0) {
@@ -76,14 +81,22 @@ contract Reputation {
         }
     }
 
+    function rateContractorAgent(Contractor con, uint256 rating) AgentOnly() AgentHasNotVoted() {
+        if(rating > 0) {
+            con._repTokens += 1;
+        } else if (con._repTokens > 0) {
+            con._repTokens -= 1;
+        }
+    }
 
     //starts a job with the given contractor, if finished before bonusTime,
     //contractor receives extra reputation tokens
-    function startJob(Contractor con, uint256 bonusTime) payable AgentOnly() {
+    function startJob(address con, uint256 bonusTime) payable AgentOnly() {
         require(bonusTime > now);
-        require(AngelList[con].length != 0); // same as AngelList[con] != null (null doesn't exist in Solidity)
-        Job thisJob = Job(con, bonusTime, msg.value);
-        JobStarted(thisJob, now);
+        require(AngelList[con]._initialized != false); // same as AngelList[con] != null (null doesn't exist in Solidity)
+        Contractor contractor = AngelList[con];
+        //Job thisJob = Job(bonusTime, contractor, msg.value);
+        JobStarted(Job(bonusTime, contractor, msg.value), now);
     }
 
     //ends job, pays the worker the amount of tokens sent when the job started,
@@ -93,9 +106,9 @@ contract Reputation {
             job._workOrder._repTokens += 1;
         }
         _repToken.mint(job._value);
-        job._workOrder.transfer(job._value);
+        job._workOrder._address.transfer(job._value);
         job._value = 0;
-        rateContractor(job._workOrder, rating);
+        rateContractorAgent(job._workOrder, rating);
         JobEnded(job, rating);
 
     }
