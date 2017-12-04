@@ -23,7 +23,7 @@ contract Reputation {
 
     struct Job {
         uint256 _bonusTime;
-        Contractor _workOrder;
+        address _workOrder;
         uint256 _value;
     }
 
@@ -58,7 +58,7 @@ contract Reputation {
     //address should hold
     function AddToList(address contractor, string addy) AgentOnly {
         _repToken.mint(5);
-        AngelList[contractor] = Contractor(5, addy);
+        AngelList[contractor] = Contractor(5, addy, false);
         contractor.transfer(5);
     }
 
@@ -94,21 +94,20 @@ contract Reputation {
     function startJob(address con, uint256 bonusTime) payable AgentOnly() {
         require(bonusTime > now);
         require(AngelList[con]._initialized != false); // same as AngelList[con] != null (null doesn't exist in Solidity)
-        Contractor contractor = AngelList[con];
         //Job thisJob = Job(bonusTime, contractor, msg.value);
-        JobStarted(Job(bonusTime, contractor, msg.value), now);
+        JobStarted(Job(bonusTime, con, msg.value), now);
     }
 
     //ends job, pays the worker the amount of tokens sent when the job started,
     //includes goodBad (0 for bad rating, positive for good rating)
     function endJob(Job job, uint256 rating) AgentOnly() {
         if(job._bonusTime > now) {
-            job._workOrder._repTokens += 1;
+            AngelList[job._workOrder]._repTokens += 1;
         }
         _repToken.mint(job._value);
-        job._workOrder._address.transfer(job._value);
+        job._workOrder.transfer(job._value);
         job._value = 0;
-        rateContractorAgent(job._workOrder, rating);
+        rateContractorAgent(AngelList[job._workOrder], rating);
         JobEnded(job, rating);
 
     }
