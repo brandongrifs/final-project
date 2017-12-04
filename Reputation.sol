@@ -71,7 +71,7 @@ contract Reputation {
     function rateContractor(Contractor con, uint256 rating) {
         if(rating > 0) {
             con._repTokens += 1;
-        } else if (con._repTokens > 0){
+        } else if (con._repTokens > 0) {
             con._repTokens -= 1;
         }
     }
@@ -79,9 +79,9 @@ contract Reputation {
 
     //starts a job with the given contractor, if finished before bonusTime,
     //contractor receives extra reputation tokens
-    function startJob(Contractor con, uint256 bonusTime) payable AgentOnly(){
+    function startJob(Contractor con, uint256 bonusTime) payable AgentOnly() {
         require(bonusTime > now);
-        require(AngelList[contractor] != Null);
+        require(AngelList[con].length != 0); // same as AngelList[con] != null (null doesn't exist in Solidity)
         Job thisJob = Job(con, bonusTime, msg.value);
         JobStarted(thisJob, now);
     }
