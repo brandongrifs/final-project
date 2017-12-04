@@ -51,7 +51,7 @@ contract Reputation {
 
     //app front end can be designed to post suggested agents
     //with their rep scores (if used) and ethereum addresses
-    function setAgent() OwnerOnly(address agent) {
+    function setAgent(address agent) OwnerOnly {
         _agent = agent;
     }
 
@@ -63,7 +63,7 @@ contract Reputation {
     function rateContractor(Contractor con) OwnerOnly() {
         if(msg.value > 0) {
             con._repTokens += 1;
-        } else if (con._repTokens > 0){
+        } else if (con._repTokens > 0) {
             con._repTokens -= 1;
         }
     }
@@ -81,7 +81,7 @@ contract Reputation {
     //contractor receives extra reputation tokens
     function startJob(Contractor con, uint256 bonusTime) payable AgentOnly(){
         require(bonusTime > now);
-        require(AngelList[contractor] != null]);
+        require(AngelList[contractor] != Null);
         Job thisJob = Job(con, bonusTime, msg.value);
         JobStarted(thisJob, now);
     }
