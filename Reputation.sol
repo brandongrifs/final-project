@@ -1,5 +1,6 @@
 pragma solidity ^0.4.0;
 import './Token.sol';
+//import './ipfs.sol';
 
 contract Reputation {
 
@@ -59,6 +60,7 @@ contract Reputation {
     function AddToList(address contractor, string addy) AgentOnly {
         _repToken.mint(5);
         AngelList[contractor] = Contractor(5, addy, false);
+
         contractor.transfer(5);
     }
 

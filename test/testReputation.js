@@ -14,7 +14,6 @@ contract('testToken', function(accounts) {
 	beforeEach(async function() {
 		token = await Token.new({from: args._owner});
 		token.mint(100);
-
 	});
 
 	/* Group test cases together
