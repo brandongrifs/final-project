@@ -54,12 +54,12 @@ contract Reputation {
         _;
     }
 
-    mapping(address => Contractor) AngelList;
-
     function Reputation() {
         _owner = msg.sender;
         _repToken = new Token();
     }
+
+    mapping(address => Contractor) AngelList;
 
     //only the agent can add new contractors, adds by address
     //address should hold
