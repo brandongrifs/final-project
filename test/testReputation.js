@@ -7,7 +7,7 @@ contract('testToken', function(accounts) {
 	/* Define your constant variables and instantiate constantly changing
 	 * ones
 	 */
-	const args = {_owner: accounts[0], _buyer1: accounts[1], _buyer2: accounts[2]};
+	const args = {_owner: accounts[0], _agent: accounts[1], _contractor: accounts[2]};
 	let token;
 
 	/* Do something before every `describe` method */
