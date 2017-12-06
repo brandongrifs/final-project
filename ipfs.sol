@@ -3,19 +3,22 @@ pragma solidity ^0.4.15;
 contract IPFS {
     string storedData;
 
-    const toIPFSHash = str => {
-        // remove leading 0x
-        const remove0x = str.slice(2, str.length);
-        // add back the multihash id
-        const bytes = Buffer.from(`1220${remove0x}`, "hex");
-        const hash = bs58.encode(bytes);
-        return hash;
-    };
+    function set(string x) {
+        storedData = toIPFSHash(x);
+    }
 
-    const fromIPFSHash = hash => {
-        const bytes = bs58.decode(hash);
-        const multiHashId = 2;
-        // remove the multihash hash id
-        return bytes.slice(multiHashId, bytes.length);
-    };
+    function get() constant returns (string x) {
+        return fromIPFSHash(storedData);
+    }
+
+    const IPFS = require('ipfs-mini');
+    const ipfs = new IPFS({host: 'ipfs.infura.io', port: 5001, protocol: 'https'});
+    const randomData = "8803cf48b8805198dbf85b2e0d514320"; // random bytes for testing
+    ipfs.add(randomData, (err, hash) => {
+    if (err) {
+        return console.log(err);
+    }
+
+    console.log(“HASH:”, hash);
+    });
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 /* Add the dependencies you're testing */
-const Token = artifacts.require("/.././Token.sol");
+//const Token = artifacts.require("/.././Token.sol");
 const Reputation = artifacts.require("/.././Reputation.sol");
 //
 contract('testReputation', function(accounts) {

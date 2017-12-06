@@ -53,7 +53,7 @@ contract Token is ERC20Interface {
 	function transferFrom(address _from, address _to, uint256 _value) returns (bool success){
 
 		require(_value >= 0);
-		require(_value <=balances[_from]) ;
+		require(_value <=balances[_from]);
 		require(_value <= allowances[_from][msg.sender]);
 		require(_to != address(0));
 
