@@ -74,19 +74,21 @@ contract Reputation {
         //agent rep ++
     }
 
-    function rateContractorOwner(Contractor con, uint256 rating) OwnerOnly() OwnerHasNotVoted() {
-        if(rating > 0) {
-            con._repTokens += 1;
-        } else if (con._repTokens > 0) {
-            con._repTokens -= 1;
+    function rateContractorOwner(address con, uint256 rating) OwnerOnly() OwnerHasNotVoted() {
+        Contractor contractor = AngelList[con];
+        if (rating > 0) {
+            contractor._repTokens += 1;
+        } else if (contractor._repTokens > 0) {
+            contractor._repTokens -= 1;
         }
     }
 
-    function rateContractorAgent(Contractor con, uint256 rating) AgentOnly() AgentHasNotVoted() {
-        if(rating > 0) {
-            con._repTokens += 1;
-        } else if (con._repTokens > 0) {
-            con._repTokens -= 1;
+    function rateContractorAgent(address con, uint256 rating) AgentOnly() AgentHasNotVoted() {
+        Contractor contractor = AngelList[con];
+        if (rating > 0) {
+            contractor._repTokens += 1;
+        } else if (contractor._repTokens > 0) {
+            contractor._repTokens -= 1;
         }
     }
 
@@ -96,19 +98,19 @@ contract Reputation {
         require(bonusTime > now);
         require(bytes(AngelList[con]._address).length != 0); // same as AngelList[con] != null (null doesn't exist in Solidity)
         //Job thisJob = Job(bonusTime, contractor, msg.value);
-        JobStarted(Job(bonusTime, con, msg.value), now);
+        //JobStarted(Job(bonusTime, con, msg.value), now);
     }
 
     //ends job, pays the worker the amount of tokens sent when the job started,
     //includes goodBad (0 for bad rating, positive for good rating)
-    function endJob(Job job, uint256 rating) AgentOnly() {
-        if(job._bonusTime > now) {
-            AngelList[job._workOrder]._repTokens += 1;
+    function endJob(uint256 bonusTime, address workOrder, uint256 value, uint256 rating) AgentOnly() {
+        if(bonusTime > now) {
+            AngelList[workOrder]._repTokens += 1;
         }
-        _repToken.mint(job._value);
-        job._workOrder.transfer(job._value);
-        job._value = 0;
-        rateContractorAgent(AngelList[job._workOrder], rating);
+        _repToken.mint(value);
+        workOrder.transfer(value);
+        value = 0;
+        rateContractorAgent(AngelList[workOrder], rating);
         JobEnded(job, rating);
     }
 
