@@ -103,24 +103,24 @@ contract Reputation {
     function startJob(address con, uint256 bonusTime, string id) payable AgentOnly() {
         require(bonusTime > now);
         require(bytes(AngelList[con]._address).length != 0); // same as AngelList[con] != null (null doesn't exist in Solidity)
-        //Job thisJob = Job(bonusTime, con, msg.value, false);
         AngelList[con]._jobList[id] = Job(bonusTime, con, msg.value, false);
-        //JobStarted(Job(bonusTime, con, msg.value), now);
+        JobStarted(id, now);
     }
 
     //ends job, pays the worker the amount of tokens sent when the job started,
     //includes goodBad (0 for bad rating, positive for good rating)
-    function endJob(uint256 bonusTime, address workOrder, uint256 value, uint256 rating) AgentOnly() {
-        if(bonusTime > now) {
-            AngelList[workOrder]._repTokens += 1;
+    function endJob(address contractor, string id, uint256 rating) AgentOnly() {
+        Job thisJob = AngelList[contractor]._jobList[id];
+        if(thisJob._bonusTime > now) {
+            AngelList[contractor]._repTokens += 1;
         }
-        _repToken.mint(value);
-        workOrder.transfer(value);
-        value = 0;
-        rateContractorAgent(workOrder, rating);
-        //JobEnded(job, rating);
+        _repToken.mint(thisJob._value);
+        contractor.transfer(thisJob._value);
+        thisJob._value = 0;
+        rateContractorAgent(contractor, rating);
+        JobEnded(id, rating);
     }
 
-    event JobStarted(Job job, uint256 timeStarted);
-    event JobEnded(Job job, uint256 rating);
+    event JobStarted(string jobID, uint256 timeStarted);
+    event JobEnded(string jobID, uint256 rating);
 }
