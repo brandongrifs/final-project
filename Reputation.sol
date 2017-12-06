@@ -26,6 +26,7 @@ contract Reputation {
         uint256 _bonusTime;
         address _workOrder;
         uint256 _value;
+        bool _jobDone;
     }
 
     modifier OwnerOnly() {
@@ -45,6 +46,11 @@ contract Reputation {
 
     modifier AgentHasNotVoted() {
         require(agentHasRatedContractor == false);
+        _;
+    }
+
+    modifier JobNotDone(Job job) {
+        require(job._jobDone == false);
         _;
     }
 
@@ -103,7 +109,7 @@ contract Reputation {
 
     //ends job, pays the worker the amount of tokens sent when the job started,
     //includes goodBad (0 for bad rating, positive for good rating)
-    function endJob(uint256 bonusTime, address workOrder, uint256 value, uint256 rating) AgentOnly() {
+    function endJob(Job job, uint256 rating) AgentOnly() {
         if(bonusTime > now) {
             AngelList[workOrder]._repTokens += 1;
         }
