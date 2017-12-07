@@ -10,7 +10,7 @@ contract Reputation {
 
     string ownerAddress;
     //contract owner is property owner
-    address _owner;
+    address public _owner;
     bool ownerHasRatedContractor = false;
     bool agentHasRatedContractor = false;
 
@@ -81,23 +81,24 @@ contract Reputation {
     }
 
     function rateContractorOwner(address con, uint256 rating) OwnerOnly() OwnerHasNotVoted() {
-        Contractor contractor = AngelList[con];
         if (rating > 0) {
-            contractor._repTokens += 1;
-        } else if (contractor._repTokens > 0) {
-            contractor._repTokens -= 1;
+            AngelList[con]._repTokens += 1;
+        } else if (AngelList[con]._repTokens > 0) {
+            AngelList[con]._repTokens -= 1;
+            _repToken.transferFrom(con, _owner, 1);
+            _repToken.burn(1);
         }
     }
 
     function rateContractorAgent(address con, uint256 rating) AgentOnly() AgentHasNotVoted() {
-        Contractor contractor = AngelList[con];
         if (rating > 0) {
             _repToken.mint(1);
-            contractor.transfer(1);
-            contractor._repTokens += 1;
-        } else if (contractor._repTokens > 0) {
-            _re
-            contractor._repTokens -= 1;
+            con.transfer(1);
+            AngelList[con]._repTokens += 1;
+        } else if (AngelList[con]._repTokens > 0) {
+            AngelList[con]._repTokens -= 1;
+            _repToken.transferFrom(con, _agent, 1);
+            _repToken.burn(1);
         }
     }
 
@@ -108,18 +109,19 @@ contract Reputation {
         require(bytes(AngelList[con]._address).length != 0); // same as AngelList[con] != null (null doesn't exist in Solidity)
         AngelList[con]._jobList[id] = Job(bonusTime, con, msg.value, false);
         JobStarted(id, now);
+        _repToken.approve(_owner, 1);
+        _repToken.approve(_agent, 1);
     }
 
     //ends job, pays the worker the amount of tokens sent when the job started,
     //includes goodBad (0 for bad rating, positive for good rating)
     function endJob(address contractor, string id, uint256 rating) AgentOnly() {
-        Job thisJob = AngelList[contractor]._jobList[id];
-        if(thisJob._bonusTime > now) {
+        if(AngelList[contractor]._jobList[id]._bonusTime > now) {
             AngelList[contractor]._repTokens += 1;
         }
-        _repToken.mint(thisJob._value);
-        contractor.transfer(thisJob._value);
-        thisJob._value = 0;
+        _repToken.mint(AngelList[contractor]._jobList[id]._value);
+        contractor.transfer(AngelList[contractor]._jobList[id]._value);
+        AngelList[contractor]._jobList[id]._value = 0;
         rateContractorAgent(contractor, rating);
         JobEnded(id, rating);
     }
