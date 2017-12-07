@@ -92,8 +92,11 @@ contract Reputation {
     function rateContractorAgent(address con, uint256 rating) AgentOnly() AgentHasNotVoted() {
         Contractor contractor = AngelList[con];
         if (rating > 0) {
+            _repToken.mint(1);
+            contractor.transfer(1);
             contractor._repTokens += 1;
         } else if (contractor._repTokens > 0) {
+            _re
             contractor._repTokens -= 1;
         }
     }
