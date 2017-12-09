@@ -11,13 +11,11 @@ contract Reputation {
     string ownerAddress;
     //contract owner is property owner
     address public _owner;
-    bool ownerHasRatedContractor = false;
-    bool agentHasRatedContractor = false;
 
     Token public _repToken;
 
     struct Contractor {
-        uint256 _repTokens;
+        address _contractor;
         string _address;
         mapping(string => Job) _jobList;
     }
@@ -27,6 +25,8 @@ contract Reputation {
         address _workOrder;
         uint256 _value;
         bool _jobDone;
+        bool ownerHasRatedContractor;
+        bool agentHasRatedContractor;
     }
 
     modifier OwnerOnly() {
@@ -59,14 +59,14 @@ contract Reputation {
         _repToken = new Token();
     }
 
-    mapping(address => Contractor) AngelList;
+    mapping(address => Contractor) public AngelList;
 
     //only the agent can add new contractors, adds by address
     //address should hold
     function AddToList(address contractor, string addy) AgentOnly {
         _repToken.mint(5);
-        AngelList[contractor] = Contractor(5, addy);
-        contractor.transfer(5);
+        AngelList[contractor] = Contractor(contractor, addy);
+        transfer(contractor, 5);
     }
 
     //app front end can be designed to post suggested agents
@@ -75,53 +75,62 @@ contract Reputation {
         _agent = agent;
     }
 
-    //only implement if the agent should have reputation as well
-    function rateAgent() OwnerOnly() {
-        //agent rep ++
-    }
-
+    //possibly add a function to timeout after a certain time after the job has elapsed,
+    //no longer allowing owner to take tokesn (_repToken.decreaseApproval)
     function rateContractorOwner(address con, uint256 rating) OwnerOnly() OwnerHasNotVoted() {
+        require(AngelList[con]._jobList[id]._jobDone);
+
         if (rating > 0) {
-            AngelList[con]._repTokens += 1;
+            _repToken.mint(1);
+            _repToken.transfer(con, 1);
         } else if (AngelList[con]._repTokens > 0) {
-            AngelList[con]._repTokens -= 1;
             _repToken.transferFrom(con, _owner, 1);
             _repToken.burn(1);
         }
+
+        if (_repToken.allowance(this, con) > 0) {
+            _repToken.decreaseApproval(con, this, 1);
+        }
+        AngelList[con]._jobList[id].ownerHasRatedContractor = true;
     }
 
-    function rateContractorAgent(address con, uint256 rating) AgentOnly() AgentHasNotVoted() {
+    function rateContractorAgent(address con, uint256 rating)  AgentHasNotVoted() {
+        require(AngelList[con]._jobList[id]._jobDone);
         if (rating > 0) {
             _repToken.mint(1);
-            con.transfer(1);
-            AngelList[con]._repTokens += 1;
-        } else if (AngelList[con]._repTokens > 0) {
-            AngelList[con]._repTokens -= 1;
+            _repToken.transfer(con, 1);
+        } else if (_repToken.balanceOf(con) > 0) {
             _repToken.transferFrom(con, _agent, 1);
             _repToken.burn(1);
         }
+        AngelList[con]._jobList[id].agentHasRatedContractor = true;
     }
 
     //starts a job with the given contractor, if finished before bonusTime,
     //contractor receives extra reputation tokens
     function startJob(address con, uint256 bonusTime, string id) payable AgentOnly() {
         require(bonusTime > now);
-        require(bytes(AngelList[con]._address).length != 0); // same as AngelList[con] != null (null doesn't exist in Solidity)
+        require(AngelList[con]._address != address(0));
         AngelList[con]._jobList[id] = Job(bonusTime, con, msg.value, false);
         JobStarted(id, now);
-        _repToken.approve(_owner, 1);
-        _repToken.approve(_agent, 1);
+        _repToken.approve(con, this, 2);
+        AngelList[con]._jobList[id].ownerHasRatedContractor = false;
+        AngelList[con]._jobList[id].agentHasRatedContractor = false;
     }
 
     //ends job, pays the worker the amount of tokens sent when the job started,
     //includes goodBad (0 for bad rating, positive for good rating)
     function endJob(address contractor, string id, uint256 rating) AgentOnly() {
         if(AngelList[contractor]._jobList[id]._bonusTime > now) {
-            AngelList[contractor]._repTokens += 1;
+            _repToken.mint(1);
+            _repToken.transfer(contractor, 1);
         }
+        AngelList[con]._jobList[id]._jobDone = true;
+
         _repToken.mint(AngelList[contractor]._jobList[id]._value);
         contractor.transfer(AngelList[contractor]._jobList[id]._value);
         AngelList[contractor]._jobList[id]._value = 0;
+
         rateContractorAgent(contractor, rating);
         JobEnded(id, rating);
     }

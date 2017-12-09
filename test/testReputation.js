@@ -29,7 +29,7 @@ contract('testReputation', function(accounts) {
 			assert.equal(await reputation._owner(), args._owner);
 		});
 		it("Owner should be able to set Agent.", async function() {
-			reputation.setAgent(args._agent, {from: args.owner});
+			reputation.setAgent(args._agent, {from: args._owner});
         	assert.equal(await reputation._agent(), args._agent);
         });
         it("Agent should be able to add potential Contractors.", async function() {

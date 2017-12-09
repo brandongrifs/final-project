@@ -65,12 +65,23 @@ contract Token is ERC20Interface {
 	}
 
 
-	function approve(address _spender, uint256 _value) returns (bool success){
+	function approve(address _giver, address _spender, uint256 _value) OwnerOnly() returns (bool success){
 		require(_spender != address(0));
 		require(_value >= 0);
 
-		allowances[msg.sender][_spender] = allowances[msg.sender][_spender].add(_value);
-		Approval(msg.sender, _spender, _value);
+		allowances[_giver][_spender] = allowances[_giver][_spender].add(_value);
+		Approval(_giver, _spender, _value);
+		return true;
+	}
+
+	function decreaseApproval(address _giver, address _spender, uint _subtractedValue) OwnerOnly() public returns (bool) {
+		uint oldValue = allowed[_giver][_spender];
+		if (_subtractedValue > oldValue) {
+			allowed[_giver][_spender] = 0;
+		} else {
+			allowed[_giver][_spender] = oldValue.sub(_subtractedValue);
+		}
+		Approval(_giver, _spender, allowed[_giver][_spender]);
 		return true;
 	}
 
