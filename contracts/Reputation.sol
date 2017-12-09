@@ -39,15 +39,6 @@ contract Reputation {
             _;
     }
 
-    modifier OwnerHasNotVoted() {
-        require(ownerHasRatedContractor == false);
-        _;
-    }
-
-    modifier AgentHasNotVoted() {
-        require(agentHasRatedContractor == false);
-        _;
-    }
 
     modifier JobNotDone(Job job) {
         require(job._jobDone == false);
@@ -66,7 +57,7 @@ contract Reputation {
     function AddToList(address contractor, string addy) AgentOnly {
         _repToken.mint(5);
         AngelList[contractor] = Contractor(contractor, addy);
-        transfer(contractor, 5);
+        _repToken.transfer(contractor, 5);
     }
 
     //app front end can be designed to post suggested agents
@@ -77,13 +68,13 @@ contract Reputation {
 
     //possibly add a function to timeout after a certain time after the job has elapsed,
     //no longer allowing owner to take tokesn (_repToken.decreaseApproval)
-    function rateContractorOwner(address con, uint256 rating) OwnerOnly() OwnerHasNotVoted() {
-        require(AngelList[con]._jobList[id]._jobDone);
+    function rateContractorOwner(address con, uint256 rating, string id) OwnerOnly() {
+        require(AngelList[con]._jobList[id]._jobDone && !AngelList[con]._jobList[id].ownerHasRatedContractor);
 
         if (rating > 0) {
             _repToken.mint(1);
             _repToken.transfer(con, 1);
-        } else if (AngelList[con]._repTokens > 0) {
+        } else if (_repToken.balanceOf(con) > 0) {
             _repToken.transferFrom(con, _owner, 1);
             _repToken.burn(1);
         }
@@ -94,8 +85,8 @@ contract Reputation {
         AngelList[con]._jobList[id].ownerHasRatedContractor = true;
     }
 
-    function rateContractorAgent(address con, uint256 rating)  AgentHasNotVoted() {
-        require(AngelList[con]._jobList[id]._jobDone);
+    function rateContractorAgent(address con, uint256 rating, string id) {
+        require(AngelList[con]._jobList[id]._jobDone && !AngelList[con]._jobList[id].agentHasRatedContractor);
         if (rating > 0) {
             _repToken.mint(1);
             _repToken.transfer(con, 1);
@@ -125,13 +116,13 @@ contract Reputation {
             _repToken.mint(1);
             _repToken.transfer(contractor, 1);
         }
-        AngelList[con]._jobList[id]._jobDone = true;
+        AngelList[contractor]._jobList[id]._jobDone = true;
 
         _repToken.mint(AngelList[contractor]._jobList[id]._value);
         contractor.transfer(AngelList[contractor]._jobList[id]._value);
         AngelList[contractor]._jobList[id]._value = 0;
 
-        rateContractorAgent(contractor, rating);
+        rateContractorAgent(contractor, rating, id);
         JobEnded(id, rating);
     }
 

@@ -4,8 +4,6 @@
     <list default="true" id="dedf89da-9b1a-4ab0-ba14-05f3268e4a8e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contracts/Reputation.sol" afterPath="$PROJECT_DIR$/contracts/Reputation.sol" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contracts/Token.sol" afterPath="$PROJECT_DIR$/contracts/Token.sol" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/migrations/2_deploy_contracts.js" afterPath="$PROJECT_DIR$/migrations/2_deploy_contracts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/testReputation.js" afterPath="$PROJECT_DIR$/test/testReputation.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,21 +28,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Reputation.sol" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Reputation.sol" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/contracts/Reputation.sol">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="96" column="74" lean-forward="false" selection-start-line="96" selection-start-column="74" selection-end-line="96" selection-end-column="74" />
+            <state relative-caret-position="145">
+              <caret line="78" column="30" lean-forward="true" selection-start-line="78" selection-start-column="30" selection-end-line="78" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Token.sol" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Token.sol" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/contracts/Token.sol">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+            <state relative-caret-position="427">
+              <caret line="83" column="45" lean-forward="false" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -169,12 +167,12 @@
       <option name="presentableId" value="Default" />
       <updated>1512538830299</updated>
       <workItem from="1512538831502" duration="5666000" />
-      <workItem from="1512786803492" duration="2669000" />
+      <workItem from="1512786803492" duration="3135000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8335000" />
+    <option name="totallyTimeSpent" value="8801000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1003" height="809" extended-state="0" />
@@ -282,18 +280,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/contracts/Token.sol">
+    <entry file="file://$PROJECT_DIR$/contracts/Reputation.sol">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+        <state relative-caret-position="145">
+          <caret line="78" column="30" lean-forward="true" selection-start-line="78" selection-start-column="30" selection-end-line="78" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/contracts/Reputation.sol">
+    <entry file="file://$PROJECT_DIR$/contracts/Token.sol">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="96" column="74" lean-forward="false" selection-start-line="96" selection-start-column="74" selection-end-line="96" selection-end-column="74" />
+        <state relative-caret-position="427">
+          <caret line="83" column="45" lean-forward="false" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
           <folding />
         </state>
       </provider>

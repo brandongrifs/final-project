@@ -65,7 +65,7 @@ contract Token is ERC20Interface {
 	}
 
 
-	function approve(address _giver, address _spender, uint256 _value) OwnerOnly() returns (bool success){
+	function approve(address _giver, address _spender, uint256 _value) onlyOwner returns (bool success){
 		require(_spender != address(0));
 		require(_value >= 0);
 
@@ -74,14 +74,14 @@ contract Token is ERC20Interface {
 		return true;
 	}
 
-	function decreaseApproval(address _giver, address _spender, uint _subtractedValue) OwnerOnly() public returns (bool) {
-		uint oldValue = allowed[_giver][_spender];
+	function decreaseApproval(address _giver, address _spender, uint _subtractedValue) onlyOwner public returns (bool) {
+		uint oldValue = allowances[_giver][_spender];
 		if (_subtractedValue > oldValue) {
-			allowed[_giver][_spender] = 0;
+			allowances[_giver][_spender] = 0;
 		} else {
-			allowed[_giver][_spender] = oldValue.sub(_subtractedValue);
+			allowances[_giver][_spender] = oldValue.sub(_subtractedValue);
 		}
-		Approval(_giver, _spender, allowed[_giver][_spender]);
+		Approval(_giver, _spender, allowances[_giver][_spender]);
 		return true;
 	}
 
