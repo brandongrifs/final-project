@@ -50,6 +50,10 @@ contract Reputation {
         _repToken = new Token();
     }
 
+    function ThisDoesSomethingIThink() {
+        _repToken.approve();
+    }
+
     mapping(address => Contractor) public AngelList;
 
     //only the agent can add new contractors, adds by address
