@@ -33,10 +33,11 @@ contract('testReputation', function(accounts) {
         	assert.equal(await reputation._agent(), args._agent);
         });
         it("Agent should be able to add potential Contractors.", async function() {
-        	reputation.AddToList(args._contractor, "Berkeley, CA", {from: args._agent});
+			reputation.setAgent(args._agent, {from: args._owner});
+			reputation.AddToList(args._contractor, "Berkeley, CA", {from: args._agent});
+			//assert.ok(await reputation.AngelList[args._contractor])
         	assert.equal(await token.balanceOf(args._contractor), 5);
         });
-       
 	});
 
 });
