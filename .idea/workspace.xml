@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dedf89da-9b1a-4ab0-ba14-05f3268e4a8e" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contracts/Reputation.sol" afterPath="$PROJECT_DIR$/contracts/Reputation.sol" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contracts/Token.sol" afterPath="$PROJECT_DIR$/contracts/Token.sol" />
     </list>
@@ -21,29 +22,44 @@
       <file leaf-file-name="Crowdsale.sol" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../Midterm-final/contracts/Crowdsale.sol">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1422">
-              <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+            <state relative-caret-position="355">
+              <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Reputation.sol" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Reputation.sol" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/contracts/Reputation.sol">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="78" column="30" lean-forward="true" selection-start-line="78" selection-start-column="30" selection-end-line="78" selection-end-column="30" />
+            <state relative-caret-position="120">
+              <caret line="8" column="14" lean-forward="false" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Token.sol" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Token.sol" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/contracts/Token.sol">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="83" column="45" lean-forward="false" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
-              <folding />
+            <state relative-caret-position="103">
+              <caret line="62" column="37" lean-forward="true" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
+              <folding>
+                <marker date="1513059311000" expanded="true" signature="1332:1378" ph="{...}" />
+                <marker date="1513059311000" expanded="true" signature="2081:2285" ph="{...}" />
+                <marker date="1513059311000" expanded="true" signature="2403:2685" ph="{...}" />
+                <marker date="1513059311000" expanded="true" signature="2488:2530" ph="{...}" />
+                <marker date="1513059311000" expanded="true" signature="2536:2607" ph="{...}" />
+                <marker date="1513059311000" expanded="true" signature="2777:2820" ph="{...}" />
+                <marker date="1513059311000" expanded="true" signature="2823:2853" ph="/*...*/" />
+                <marker date="1513059311000" expanded="true" signature="2855:2914" ph="/*...*/" />
+                <marker date="1513059311000" expanded="true" signature="2969:3183" ph="{...}" />
+                <marker date="1513059311000" expanded="true" signature="3269:3430" ph="{...}" />
+                <marker date="1513059311000" expanded="true" signature="3433:3497" ph="/*...*/" />
+                <marker date="1513059311000" expanded="true" signature="3499:3567" ph="/*...*/" />
+                <marker date="1513059311000" expanded="true" signature="3632:3825" ph="{...}" />
+                <marker date="1513059311000" expanded="true" signature="3892:3931" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -167,12 +183,12 @@
       <option name="presentableId" value="Default" />
       <updated>1512538830299</updated>
       <workItem from="1512538831502" duration="5666000" />
-      <workItem from="1512786803492" duration="3135000" />
+      <workItem from="1512786803492" duration="4688000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8801000" />
+    <option name="totallyTimeSpent" value="10354000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1003" height="809" extended-state="0" />
@@ -229,7 +245,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1513059311000" expanded="true" signature="1332:1378" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2081:2285" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2403:2685" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2488:2530" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2536:2607" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2777:2820" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2823:2853" ph="/*...*/" />
+            <marker date="1513059311000" expanded="true" signature="2855:2914" ph="/*...*/" />
+            <marker date="1513059311000" expanded="true" signature="2969:3183" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="3269:3430" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="3433:3497" ph="/*...*/" />
+            <marker date="1513059311000" expanded="true" signature="3499:3567" ph="/*...*/" />
+            <marker date="1513059311000" expanded="true" signature="3632:3825" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="3892:3931" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -272,26 +303,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/contracts/Token.sol">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="62" column="37" lean-forward="true" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
+          <folding>
+            <marker date="1513059311000" expanded="true" signature="1332:1378" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2081:2285" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2403:2685" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2488:2530" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2536:2607" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2777:2820" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="2823:2853" ph="/*...*/" />
+            <marker date="1513059311000" expanded="true" signature="2855:2914" ph="/*...*/" />
+            <marker date="1513059311000" expanded="true" signature="2969:3183" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="3269:3430" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="3433:3497" ph="/*...*/" />
+            <marker date="1513059311000" expanded="true" signature="3499:3567" ph="/*...*/" />
+            <marker date="1513059311000" expanded="true" signature="3632:3825" ph="{...}" />
+            <marker date="1513059311000" expanded="true" signature="3892:3931" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../../Midterm-final/contracts/Crowdsale.sol">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1422">
-          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+        <state relative-caret-position="355">
+          <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/contracts/Reputation.sol">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="78" column="30" lean-forward="true" selection-start-line="78" selection-start-column="30" selection-end-line="78" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contracts/Token.sol">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="83" column="45" lean-forward="false" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
+        <state relative-caret-position="120">
+          <caret line="8" column="14" lean-forward="false" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
           <folding />
         </state>
       </provider>
