@@ -23,7 +23,7 @@ contract('testReputation', function(accounts) {
 	 * Make sure to provide descriptive strings for method arguements and
 	 * assert statements
 	 */
-	describe('TestReputationGeneric', function() {
+	describe('TestReputationSetup', function() {
 		it("Reputation should be able to deploy token contract.", async function() {
 			assert.equal(await token.owner(), reputation.address);
 			assert.equal(await reputation._owner(), args._owner);
@@ -37,6 +37,13 @@ contract('testReputation', function(accounts) {
 			reputation.AddToList(args._contractor, "Berkeley, CA", {from: args._agent});
 			//assert.ok(await reputation.AngelList[args._contractor])
         	assert.equal(await token.balanceOf(args._contractor), 5);
+		});
+		it("Contractor should be set in AngelList.", async function() {
+			reputation.setAgent(args._agent, {from: args._owner});
+			reputation.AddToList(args._contractor, "Berkeley, CA", {from: args._agent});
+			let addy = await reputation.AngelList(args._contractor);
+			console.log(addy[1]);
+			assert.equal(addy[1], "Berkeley, CA");
         });
 	});
 
