@@ -101,8 +101,8 @@ contract Reputation {
     //contractor receives extra reputation tokens
     function startJob(address con, uint256 bonusTime, string id) payable AgentOnly() {
         require(bonusTime > now);
-        require(AngelList[con]._address != address(0));
-        AngelList[con]._jobList[id] = Job(bonusTime, con, msg.value, false);
+        require(AngelList[con]._contractor !=  address(0));
+        AngelList[con]._jobList[id] = Job(bonusTime, con, msg.value, false, false, false);
         JobStarted(id, now);
         _repToken.approve(con, this, 2);
         AngelList[con]._jobList[id].ownerHasRatedContractor = false;

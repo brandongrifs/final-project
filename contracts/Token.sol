@@ -74,6 +74,15 @@ contract Token is ERC20Interface {
 		return true;
 	}
 
+	function approve(address _spender, uint256 _value) onlyOwner returns (bool success){
+		require(_spender != address(0));
+		require(_value >= 0);
+
+		allowances[msg.sender][_spender] = allowances[msg.sender][_spender].add(_value);
+		Approval(msg.sender, _spender, _value);
+		return true;
+	}
+
 	function decreaseApproval(address _giver, address _spender, uint _subtractedValue) onlyOwner public returns (bool) {
 		uint oldValue = allowances[_giver][_spender];
 		if (_subtractedValue > oldValue) {
