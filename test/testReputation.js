@@ -50,7 +50,11 @@ contract('testReputation', function(accounts) {
 		it("stuff", async function() {
 			reputation.setAgent(args._agent, {from: args._owner});
 			reputation.AddToList(args._contractor, "Berkeley, CA", {from: args._agent});
-			reputation.startJob(args._contractor, 10);
+			reputation.startJob(args._contractor, 10, "Job in Berkeley");
+			let con = await reputation.AngelList(args._contractor);
+			//let jobList = con[2];
+			console.log(con);
+			assert.ok(jobList("Job in Berkeley"));
 		});
 	});
 
