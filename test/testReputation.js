@@ -42,9 +42,16 @@ contract('testReputation', function(accounts) {
 			reputation.setAgent(args._agent, {from: args._owner});
 			reputation.AddToList(args._contractor, "Berkeley, CA", {from: args._agent});
 			let addy = await reputation.AngelList(args._contractor);
-			console.log(addy[1]);
 			assert.equal(addy[1], "Berkeley, CA");
         });
+	});
+
+	describe('TestReputationStartJob', function() {
+		it("stuff", async function() {
+			reputation.setAgent(args._agent, {from: args._owner});
+			reputation.AddToList(args._contractor, "Berkeley, CA", {from: args._agent});
+			reputation.startJob(args._contractor, 10);
+		});
 	});
 
 });

@@ -100,13 +100,11 @@ contract Reputation {
     //starts a job with the given contractor, if finished before bonusTime,
     //contractor receives extra reputation tokens
     function startJob(address con, uint256 bonusTime, string id) payable AgentOnly() {
-        require(bonusTime > now);
+        require(bonusTime > 0);
         require(AngelList[con]._contractor != address(0));
-        AngelList[con]._jobList[id] = Job(bonusTime, con, msg.value, false, false, false);
+        AngelList[con]._jobList[id] = Job(bonusTime + now, con, msg.value, false, false, false);
         JobStarted(id, now);
         _repToken.approve(con, this, 2);
-        AngelList[con]._jobList[id].ownerHasRatedContractor = false;
-        AngelList[con]._jobList[id].agentHasRatedContractor = false;
     }
 
     //ends job, pays the worker the amount of tokens sent when the job started,
