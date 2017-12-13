@@ -12,7 +12,7 @@ contract('testReputation', function(accounts) {
 	let reputation, token;
 
 	/* Do something before every `describe` method */
-	beforeEach(async function() {
+	before(async function() {
 		reputation = await Reputation.new({from: args._owner});
 		token = Token.at(await reputation._repToken());
 
